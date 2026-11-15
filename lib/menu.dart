@@ -3,14 +3,16 @@ import 'package:material_ui/material_ui.dart';
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
 
-  final String npm = "2406000001";
-  final String nama = "Burhan";
-  final String kelas = "PBP A";
+  final String npm = "2506556246";
+  final String nama = "Muhammad Arsyad Avmeilputra";
+  final String kelas = "PBP KKI";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("View Projects", Icons.folder),
-    ItemHomepage("Add Project", Icons.add_circle),
-    ItemHomepage("Logout", Icons.logout),
+    ItemHomepage("View Projects", Icons.folder, Color.fromARGB(255, 235, 180, 3)),
+    ItemHomepage("View Experiences", Icons.star, Color.fromARGB(255, 230, 141, 9)),
+    ItemHomepage("Logout", Icons.logout, Color.fromARGB(255, 188, 57, 57)),
+    ItemHomepage("Add Project", Icons.add_circle, Color.fromARGB(255, 235, 180, 3)),
+    ItemHomepage("Add Experiences", Icons.add_circle, Color.fromARGB(255, 230, 141, 9)),
   ];
 
   @override
@@ -19,7 +21,7 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'MyPortfolio',
-          style: TextStyle(
+          style: TextStyle( 
             color: Colors.white,
             fontWeight:FontWeight.bold,
           ),
@@ -80,7 +82,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 class InfoCard extends StatelessWidget {
-  // Information card displaying a tittle and its associated content
+  // Information card displaying a title and its associated content
   final String title;
   final String content;
 
@@ -91,19 +93,27 @@ class InfoCard extends StatelessWidget {
     return Card(
       elevation: 2.0,
       child: Container(
-        width: MediaQuery.of(context).size.width / 3.5,
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              title,
-              style: const TextStyle(fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8.0),
-            Text(content),
-          ],
+          width: MediaQuery.of(context).size.width / 3.5,
+          constraints: const BoxConstraints(
+            minHeight: 120.0,
+          ),
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8.0),
+              Text(
+                content,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
-      ),
     );
   }
 }
@@ -111,8 +121,9 @@ class InfoCard extends StatelessWidget {
 class ItemHomepage {
   final String name;
   final IconData icon;
+  final Color color;
 
-  ItemHomepage(this.name, this.icon);
+  ItemHomepage(this.name, this.icon, this.color);
 }
 
 class ItemCard extends StatelessWidget {
@@ -123,7 +134,7 @@ class ItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Theme.of(context).colorScheme.secondary,
+      color: item.color,
       borderRadius: BorderRadius.circular(12),
       child: InkWell(
         onTap: () {
