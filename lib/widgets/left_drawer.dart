@@ -1,6 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
+import 'package:myportofolio_mobile/screens/experience_form.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
@@ -12,7 +13,7 @@ class LeftDrawer extends StatelessWidget {
         children: [
           const DrawerHeader(
             decoration: BoxDecoration(
-                color: Colors.indigo,
+                color: Colors.blue,
               ),
             child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,10 +42,10 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Home'),
             // Navigate to the home screen
             onTap: () {
+              // Replace the route on top of the stack
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => MyHomePage(),
+                MaterialPageRoute(builder: (context) => MyHomePage(),
                 ),
               );
             },
@@ -54,9 +55,19 @@ class LeftDrawer extends StatelessWidget {
             title: const Text('Add Project'),
             // Navigate to Add Project screen
             onTap: () {
-              // Add route to ProjectFormPage
+              // Add route of ProjectFormPage to stack
               Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const ProjectFormPage()));
+            }
+          ),
+          ListTile(
+            leading: const Icon(Icons.add_circle_outline),
+            title: const Text('Add Experience'),
+            // Navigate to Add Experience screen
+            onTap: () {
+              // Add rout of ExperienceForm page to stack
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const ExperienceFormPage()));
             }
           )
         ],

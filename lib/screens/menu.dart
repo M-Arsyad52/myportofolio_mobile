@@ -14,7 +14,7 @@ class MyHomePage extends StatelessWidget {
     ItemHomepage("View Experiences", Icons.star, Color.fromARGB(255, 230, 141, 9)),
     ItemHomepage("Logout", Icons.logout, Color.fromARGB(255, 188, 57, 57)),
     ItemHomepage("Add Project", Icons.add_circle, Color.fromARGB(255, 235, 180, 3)),
-    ItemHomepage("Add Experiences", Icons.add_circle, Color.fromARGB(255, 230, 141, 9)),
+    ItemHomepage("Add Experience", Icons.add_circle, Color.fromARGB(255, 230, 141, 9)),
   ];
 
   @override
