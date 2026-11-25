@@ -1,51 +1,63 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/screens/menu.dart';
+import 'package:myportofolio_mobile/screens/login_screen.dart';
 import 'package:myportofolio_mobile/screens/project_form.dart';
+import 'package:myportofolio_mobile/screens/project_list_screen.dart';
 import 'package:myportofolio_mobile/screens/experience_form.dart';
+import 'package:myportofolio_mobile/services/auth_state.dart';
+import 'package:myportofolio_mobile/widgets/auth_guard.dart';
+import 'package:provider/provider.dart';
 
 class LeftDrawer extends StatelessWidget {
   const LeftDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isLoggedIn = context.watch<AuthState>().isLoggedIn;
+
     return Drawer(
       child: ListView(
         children: [
           const DrawerHeader(
-            decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+            decoration: BoxDecoration(color: Colors.blue),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'My Portfolio',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'My Portfolio',
+                  style: TextStyle(
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Explore personal projects and experiences!',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),    
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'Explore personal projects and experiences!',
+                  style: TextStyle(fontSize: 15, color: Colors.white),
+                ),
+              ],
             ),
+          ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),
-            // Navigate to the home screen
             onTap: () {
-              // Replace the route on top of the stack
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => MyHomePage(),
+                MaterialPageRoute<void>(builder: (_) => MyHomePage()),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.folder_outlined),
+            title: const Text('View Projects'),
+            onTap: () {
+              final navigator = Navigator.of(context);
+              navigator.pop();
+              navigator.push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ProjectListScreen(),
                 ),
               );
             },
@@ -53,23 +65,58 @@ class LeftDrawer extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Project'),
-            // Navigate to Add Project screen
-            onTap: () {
-              // Add route of ProjectFormPage to stack
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ProjectFormPage()));
-            }
+            onTap: () async {
+              final navigator = Navigator.of(context);
+              navigator.pop();
+              if (!await ensureLoggedIn(navigator.context)) return;
+              navigator.push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ProjectFormPage(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: const Icon(Icons.add_circle_outline),
             title: const Text('Add Experience'),
-            // Navigate to Add Experience screen
-            onTap: () {
-              // Add rout of ExperienceForm page to stack
-              Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const ExperienceFormPage()));
-            }
-          )
+            onTap: () async {
+              final navigator = Navigator.of(context);
+              navigator.pop();
+              if (!await ensureLoggedIn(navigator.context)) return;
+              navigator.push(
+                MaterialPageRoute<void>(
+                  builder: (_) => const ExperienceFormPage(),
+                ),
+              );
+            },
+          ),
+          const Divider(),
+          if (!isLoggedIn)
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                final navigator = Navigator.of(context);
+                navigator.pop();
+                navigator.push<bool>(
+                  MaterialPageRoute<bool>(builder: (_) => const LoginScreen()),
+                );
+              },
+            )
+          else
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () async {
+                final auth = context.read<AuthState>();
+                final messenger = ScaffoldMessenger.of(context);
+                Navigator.pop(context);
+                await auth.logout();
+                messenger.showSnackBar(
+                  const SnackBar(content: Text('Logged out successfully.')),
+                );
+              },
+            ),
         ],
       ),
     );

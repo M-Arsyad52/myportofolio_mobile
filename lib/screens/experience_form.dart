@@ -9,7 +9,10 @@ class ExperienceFormPage extends StatefulWidget {
 }
 
 class _ExperiencePageState extends State<ExperienceFormPage> {
-  final _formKey = GlobalKey<FormState>();  // used to access the form state, validate form, and manage its state
+  final _formKey =
+      GlobalKey<
+        FormState
+      >(); // used to access the form state, validate form, and manage its state
 
   // variables to store the value of input fields
   String _experienceTitle = "";
@@ -26,16 +29,13 @@ class _ExperiencePageState extends State<ExperienceFormPage> {
     'Competition',
     'Other',
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add Experience Form',
-          ),
-        ),
-         backgroundColor: Colors.blue,
+        title: const Center(child: Text('Add Experience Form')),
+        backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
       ),
       drawer: const LeftDrawer(),
@@ -109,7 +109,14 @@ class _ExperiencePageState extends State<ExperienceFormPage> {
                     ),
                   ),
                   initialValue: _category,
-                  items: _categories.map((category) => DropdownMenuItem(value: category, child: Text(category),)).toList(),
+                  items: _categories
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
+                      .toList(),
                   onChanged: (String? newValue) {
                     setState(() {
                       _category = newValue!;
@@ -159,7 +166,9 @@ class _ExperiencePageState extends State<ExperienceFormPage> {
                         );
                       }
                     },
-                    child: const Text("Save", style: TextStyle(color: Colors.white),
+                    child: const Text(
+                      "Save",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

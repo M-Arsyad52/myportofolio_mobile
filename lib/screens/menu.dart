@@ -10,11 +10,27 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP KKI";
 
   final List<ItemHomepage> items = [
-    ItemHomepage("View Projects", Icons.folder, Color.fromARGB(255, 235, 180, 3)),
-    ItemHomepage("View Experiences", Icons.star, Color.fromARGB(255, 230, 141, 9)),
+    ItemHomepage(
+      "View Projects",
+      Icons.folder,
+      Color.fromARGB(255, 235, 180, 3),
+    ),
+    ItemHomepage(
+      "View Experiences",
+      Icons.star,
+      Color.fromARGB(255, 230, 141, 9),
+    ),
     ItemHomepage("Logout", Icons.logout, Color.fromARGB(255, 188, 57, 57)),
-    ItemHomepage("Add Project", Icons.add_circle, Color.fromARGB(255, 235, 180, 3)),
-    ItemHomepage("Add Experience", Icons.add_circle, Color.fromARGB(255, 230, 141, 9)),
+    ItemHomepage(
+      "Add Project",
+      Icons.add_circle,
+      Color.fromARGB(255, 235, 180, 3),
+    ),
+    ItemHomepage(
+      "Add Experience",
+      Icons.add_circle,
+      Color.fromARGB(255, 230, 141, 9),
+    ),
   ];
 
   @override
@@ -23,13 +39,10 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'MyPortfolio',
-          style: TextStyle( 
-            color: Colors.white,
-            fontWeight:FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        iconTheme: const IconThemeData(color:Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       drawer: const LeftDrawer(),
       body: Padding(
@@ -97,27 +110,22 @@ class InfoCard extends StatelessWidget {
     return Card(
       elevation: 2.0,
       child: Container(
-          width: MediaQuery.of(context).size.width / 3.5,
-          constraints: const BoxConstraints(
-            minHeight: 120.0,
-          ),
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                title,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8.0),
-              Text(
-                content,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+        width: MediaQuery.of(context).size.width / 3.5,
+        constraints: const BoxConstraints(minHeight: 120.0),
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8.0),
+            Text(content, textAlign: TextAlign.center),
+          ],
         ),
+      ),
     );
   }
 }
@@ -129,4 +137,3 @@ class ItemHomepage {
 
   ItemHomepage(this.name, this.icon, this.color);
 }
-
